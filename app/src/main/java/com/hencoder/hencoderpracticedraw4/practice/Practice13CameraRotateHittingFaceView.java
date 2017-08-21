@@ -90,24 +90,36 @@ public class Practice13CameraRotateHittingFaceView extends View {
 
         camera.save();
         matrix.reset();
-        //camera.rotateX(degree);
-        camera.rotateY(degree);
-        camera.getMatrix(matrix);
-        //camera.setLocation(0, 0, -15);
-        //float z =  15 * 72;
-        //camera.translate(0, 0, -z);
+        camera.rotateX(degree);
+        //camera.rotateY(degree);
 
+        //TODO 糊脸修正方式一
+        camera.setLocation(0, 0, -15);
+
+        //TODO 糊脸修正方式二
+        camera.getMatrix(matrix);
+        /*
+        camera.getMatrix(matrix);
         float[] mValues = new float[9];
         matrix.getValues(mValues);			    //获取数值
         mValues[6] = mValues[6]/scale;			//数值修正
         mValues[7] = mValues[7]/scale;			//数值修正
         matrix.setValues(mValues);			    //重新赋值
+        */
 
-        camera.restore();
+
+        //TODO 通过调整相机矩阵方式 调整中心 调用canvas.contact
         matrix.preTranslate(-centerX, -centerY);
         matrix.postTranslate(centerX, centerY);
+
+        //TODO 通过画布方式 调整中心 调用camera.applyToCanvas
         canvas.save();
         canvas.concat(matrix);
+        //canvas.translate(centerX, centerY);
+        //camera.applyToCanvas(canvas);
+        //canvas.translate(-centerX, -centerY);
+        camera.restore();
+        //TODO 最后绘制图片
         canvas.drawBitmap(bitmap, point.x, point.y, paint);
         canvas.restore();
     }

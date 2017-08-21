@@ -29,16 +29,25 @@ public class Practice13CameraRotateHittingFaceView extends View {
     //ObjectAnimator animator = ObjectAnimator.ofInt(this, "degree", 90, 0);//向左旋转
     ObjectAnimator animator = ObjectAnimator.ofInt(this, "degree", 0, 360);
 
+    float scale = 1;
+
+    Context mContext;
     public Practice13CameraRotateHittingFaceView(Context context) {
         super(context);
+        this.mContext = context;
+        scale = context.getResources().getDisplayMetrics().density;
     }
 
     public Practice13CameraRotateHittingFaceView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
+        scale = context.getResources().getDisplayMetrics().density;
     }
 
     public Practice13CameraRotateHittingFaceView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.mContext = context;
+        scale = context.getResources().getDisplayMetrics().density;
     }
 
     {
@@ -84,7 +93,16 @@ public class Practice13CameraRotateHittingFaceView extends View {
         //camera.rotateX(degree);
         camera.rotateY(degree);
         camera.getMatrix(matrix);
-        camera.setLocation(0, 0, -15);
+        //camera.setLocation(0, 0, -15);
+        //float z =  15 * 72;
+        //camera.translate(0, 0, -z);
+
+        float[] mValues = new float[9];
+        matrix.getValues(mValues);			    //获取数值
+        mValues[6] = mValues[6]/scale;			//数值修正
+        mValues[7] = mValues[7]/scale;			//数值修正
+        matrix.setValues(mValues);			    //重新赋值
+
         camera.restore();
         matrix.preTranslate(-centerX, -centerY);
         matrix.postTranslate(centerX, centerY);

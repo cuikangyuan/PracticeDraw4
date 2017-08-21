@@ -24,6 +24,9 @@ public class Practice13CameraRotateHittingFaceView extends View {
     Camera camera = new Camera();
     Matrix matrix = new Matrix();
     int degree;
+    //360 -> 270  减去180度----> 90 -> 0 //防止看到view显示镜像的
+    //ObjectAnimator animator = ObjectAnimator.ofInt(this, "degree", 360, 270);//向左旋转
+    //ObjectAnimator animator = ObjectAnimator.ofInt(this, "degree", 90, 0);//向左旋转
     ObjectAnimator animator = ObjectAnimator.ofInt(this, "degree", 0, 360);
 
     public Practice13CameraRotateHittingFaceView(Context context) {
@@ -78,7 +81,8 @@ public class Practice13CameraRotateHittingFaceView extends View {
 
         camera.save();
         matrix.reset();
-        camera.rotateX(degree);
+        //camera.rotateX(degree);
+        camera.rotateY(degree);
         camera.getMatrix(matrix);
         camera.setLocation(0, 0, -15);
         camera.restore();

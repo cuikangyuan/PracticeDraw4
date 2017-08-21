@@ -38,6 +38,7 @@ public class Practice04ScaleView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
+        //当缩放比例为负数的时候会根据缩放中心轴进行翻转
         canvas.scale(1.3f, 1.3f, point1.x + bitmap.getWidth() / 2, point1.y + bitmap.getHeight() / 2);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
         canvas.restore();

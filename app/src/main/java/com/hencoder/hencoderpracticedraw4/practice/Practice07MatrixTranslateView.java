@@ -40,7 +40,7 @@ public class Practice07MatrixTranslateView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Matrix matrix = new Matrix();
-
+        //单独一个操作 pre 和 post 没有区别
         matrix.postTranslate(-100, -100);
         canvas.save();
         canvas.concat(matrix);
